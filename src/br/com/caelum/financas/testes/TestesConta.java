@@ -58,5 +58,7 @@ public class TestesConta {
     manager.remove(conta1);
 
     manager.getTransaction().commit();
+
+    // Teste
   }
 }

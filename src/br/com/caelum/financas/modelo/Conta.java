@@ -13,10 +13,18 @@ public class Conta {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO, generator = "SEQ_CONTAS")
   private Integer id;
-  private String titular;
   private String banco;
   private String agencia;
   private String numero;
+
+  public Conta() {
+  }
+
+  public Conta(String banco, String agencia, String numero) {
+    this.banco = banco;
+    this.agencia = agencia;
+    this.numero = numero;
+  }
 
   public Integer getId() {
     return id;
@@ -24,14 +32,6 @@ public class Conta {
 
   public void setId(Integer id) {
     this.id = id;
-  }
-
-  public String getTitular() {
-    return titular;
-  }
-
-  public void setTitular(String titular) {
-    this.titular = titular;
   }
 
   public String getBanco() {

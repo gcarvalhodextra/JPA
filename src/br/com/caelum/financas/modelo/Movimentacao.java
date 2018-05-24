@@ -2,12 +2,14 @@ package br.com.caelum.financas.modelo;
 
 import java.math.BigDecimal;
 import java.util.Calendar;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -39,15 +41,20 @@ public class Movimentacao {
 
   private String descricao;
 
+  @ManyToMany
+  private List<Categoria> categoria;
+
   public Movimentacao() {
   }
 
-  public Movimentacao(BigDecimal valor, TipoMovimentacao tipoMovimentacao, Calendar data, Conta conta, String descricao) {
+  public Movimentacao(BigDecimal valor, TipoMovimentacao tipoMovimentacao, Calendar data, Conta conta, String descricao,
+    List<Categoria> categoria) {
     this.valor = valor;
     this.tipoMovimentacao = tipoMovimentacao;
     this.data = data;
     this.conta = conta;
     this.descricao = descricao;
+    this.categoria = categoria;
   }
 
   public Integer getId() {
@@ -96,5 +103,13 @@ public class Movimentacao {
 
   public void setDescricao(String descricao) {
     this.descricao = descricao;
+  }
+
+  public List<Categoria> getCategorias() {
+    return categoria;
+  }
+
+  public void setCategorias(List<Categoria> categoria) {
+    this.categoria = categoria;
   }
 }

@@ -8,6 +8,13 @@ não está sendo atualizada automaticamente.
 Removed   -> Quando é deletada do database.
 
 ********************************************************************************
+@OneToOne - Cada cliente pode ter apenas 1 conta
+@JoinColumn(unique = true) // Se não colocar isso ele aceita dois clientes com a mesma conta
+@OneToOne
+private Conta conta;
+
+@OneToMany - Apenas 1 usuário pode ter essa permissão
+1 usuário pode ter N permissões, porem não repete para outros usuários
 @Entity
 public class Usuario {
    @OneToMany
@@ -16,8 +23,10 @@ public class Usuario {
 @Entity
 public class Permissao {
 }
-@OneToMany - Apenas 1 usuário pode ter essa permissão
-1 usuário pode ter N permissões, porem não repete para outros usuários
+
+@ManyToMany - Muitos para muitos, muitos podem ter a mesma
+@ManyToMany
+private List<Categoria> categoria;
 
 ********************************************************************************
 

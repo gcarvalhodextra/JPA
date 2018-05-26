@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import javax.persistence.EntityManager;
 
-public class MovimentacoesComCategoria {
+public class MovimentacoesCategoria {
 
   public static void main(String[] args) {
     Conta conta = new Conta("Itau", "2162", "01 005850-2");

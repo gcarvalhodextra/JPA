@@ -1,2 +1,2 @@
 # JPA
-IntelliJ + JPA + Hibernate + Java8
+IntelliJ + JPA + Hibernate + Java8 + MySQL

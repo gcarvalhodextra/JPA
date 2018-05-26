@@ -1,9 +1,12 @@
 package br.com.caelum.financas.modelo;
 
+import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
 @Entity
@@ -13,10 +16,23 @@ public class Conta {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO, generator = "SEQ_CONTAS")
   private Integer id;
-  private String titular;
   private String banco;
   private String agencia;
   private String numero;
+
+  //@OneToMany(mappedBy = "conta", fetch = FetchType.LAZY)
+  //@OneToMany(mappedBy = "conta", fetch = FetchType.EAGER)
+  @OneToMany(mappedBy = "conta")
+  private List<Movimentacao> movimentacoes;
+
+  public Conta() {
+  }
+
+  public Conta(String banco, String agencia, String numero) {
+    this.banco = banco;
+    this.agencia = agencia;
+    this.numero = numero;
+  }
 
   public Integer getId() {
     return id;
@@ -24,14 +40,6 @@ public class Conta {
 
   public void setId(Integer id) {
     this.id = id;
-  }
-
-  public String getTitular() {
-    return titular;
-  }
-
-  public void setTitular(String titular) {
-    this.titular = titular;
   }
 
   public String getBanco() {
@@ -56,5 +64,13 @@ public class Conta {
 
   public void setNumero(String numero) {
     this.numero = numero;
+  }
+
+  public List<Movimentacao> getMovimentacoes() {
+    return movimentacoes;
+  }
+
+  public void setMovimentacoes(List<Movimentacao> movimentacoes) {
+    this.movimentacoes = movimentacoes;
   }
 }

@@ -16,7 +16,6 @@ public class Relacionamento {
     conta.setAgencia("0102");
     conta.setBanco("Itau");
     conta.setNumero("1234");
-    conta.setTitular("Leonardo");
 
     Movimentacao movimentacao = new Movimentacao();
     movimentacao.setData(Calendar.getInstance());

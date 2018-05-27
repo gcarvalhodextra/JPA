@@ -26,7 +26,7 @@ http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
       none - Não faz nada
       -->
       <!--Visualizar o SQL-->
-      <property name="hibernate.show_sql" value="true"/>
+      <property name="hibernate.show_sql" value="false"/>
       <property name="hibernate.format_sql" value="true"/>
     </properties>
   </persistence-unit>

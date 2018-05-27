@@ -53,16 +53,35 @@ public class Conta {
 
 
 * ********************************************************************************
-Lazy Loading (Default) -> Traz as informações no get
+Lazy Loading (Default) -> Traz as informações no GET
 @OneToMany(mappedBy = "conta", fetch = FetchType.LAZY)
 private List<Movimentacao> movimentacoes;
 
-@OneToMany(mappedBy = "conta", fetch = FetchType.EAGER)
+@OneToMany(mappedBy = "conta", fetch = FetchType.EAGER) - Se colocar no select não precisa desse
 Eager Loading -> Traz tudo -> Transformando em Eager abaixo
-String jpql = "select c from Conta c join fetch c.movimentacoes";
+// Lista todos os bancos, mesmo que ele não tenha movimentações
+// Left join mostra o da esquerda mesmo que o da direita não exista
+String jpql = "select distinct  c from Conta c left join fetch c.movimentacoes";
+OBS: Precisa do distinct
 
 * ********************************************************************************
+# Força o retorno como Double.class
+TypedQuery<Double> query = em.createQuery(jpql, Double.class);
+List<Double> result = query.getResultList();
+
 * ********************************************************************************
+# Utilizando NamedQuery, são processados ao iniciar o hibernate
+@Entity
+@NamedQuery(query = "select avg(m.valor) from Movimentacao m group by m.data", name = "groupByData")
+public class Movimentacao {}
+
+private static void useNamedQuery(EntityManager em) {
+    TypedQuery<Double> query = em.createNamedQuery("groupByData", Double.class);
+    List<Double> result = query.getResultList();
+    result.stream().forEach(m -> System.out.println("Media " + m));
+}
+
+
 * ********************************************************************************
 * ********************************************************************************
 * ********************************************************************************

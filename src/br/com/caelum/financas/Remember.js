@@ -7,15 +7,17 @@ Detached  -> Quando já deu o em.close(), ela representa o BD mas não está sen
 Removed   -> Quando é deletada do database.
 
 ********************************************************************************
-@OneToOne - Cada cliente pode ter apenas 1 conta
-@JoinColumn(unique = true) // Condição cada usuario tem a sua conta
-private Conta conta;
-
 @OneToMany - Cada usuário pode ter n permissoes *(Não pode salvar a permissão de outros usuários)*
+#Um usuário pode ter N perissoes e não divide com ninguem
 private List<Permissao> permissoes;
 
 @ManyToMany - Muitos para muitos, muitos podem ter a mesma (Cria a tavela de relacionamento)
+#Um usuário pode ter N perissoes e divide com os coleguinhas
 private List<Categoria> categoria;
+
+@OneToOne - Cada cliente pode ter apenas 1 conta
+@JoinColumn(unique = true) // Condição cada usuario tem a sua conta
+private Conta conta;
 
 @ManyToOne - Muitas Movimentações tem uma conta
 private Conta conta;

@@ -7,15 +7,17 @@ Detached  -> Quando já deu o em.close(), ela representa o BD mas não está sen
 Removed   -> Quando é deletada do database.
 
 ********************************************************************************
-@OneToOne - Cada cliente pode ter apenas 1 conta
-@JoinColumn(unique = true) // Condição cada usuario tem a sua conta
-private Conta conta;
-
 @OneToMany - Cada usuário pode ter n permissoes *(Não pode salvar a permissão de outros usuários)*
+#Um usuário pode ter N perissoes e não divide com ninguem
 private List<Permissao> permissoes;
 
 @ManyToMany - Muitos para muitos, muitos podem ter a mesma (Cria a tavela de relacionamento)
+#Um usuário pode ter N perissoes e divide com os coleguinhas
 private List<Categoria> categoria;
+
+@OneToOne - Cada cliente pode ter apenas 1 conta
+@JoinColumn(unique = true) // Condição cada usuario tem a sua conta
+private Conta conta;
 
 @ManyToOne - Muitas Movimentações tem uma conta
 private Conta conta;
@@ -65,11 +67,23 @@ String jpql = "select distinct  c from Conta c left join fetch c.movimentacoes";
 OBS: Precisa do distinct
 
 * ********************************************************************************
-// Força o retorno como Double.class
+# Força o retorno como Double.class
 TypedQuery<Double> query = em.createQuery(jpql, Double.class);
 List<Double> result = query.getResultList();
 
 * ********************************************************************************
+# Utilizando NamedQuery, são processados ao iniciar o hibernate
+@Entity
+@NamedQuery(query = "select avg(m.valor) from Movimentacao m group by m.data", name = "groupByData")
+public class Movimentacao {}
+
+private static void useNamedQuery(EntityManager em) {
+    TypedQuery<Double> query = em.createNamedQuery("groupByData", Double.class);
+    List<Double> result = query.getResultList();
+    result.stream().forEach(m -> System.out.println("Media " + m));
+}
+
+
 * ********************************************************************************
 * ********************************************************************************
 * ********************************************************************************
